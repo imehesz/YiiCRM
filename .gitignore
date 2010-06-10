@@ -1,0 +1,4 @@
+assets/*
+*swp
+protected/runtime/*
+protected/mehesz/settings.php
