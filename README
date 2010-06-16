@@ -1,0 +1,14 @@
+How to setup a module
+=====================
+
+Let's create a module called CONTACT (actually `contact`)
+- Add the module to the main.php config file (protect/config/main.php)
+- Add the module to the `modules` table in the Database
+- Assign the module to specific domains if needed
+
+Create the desired module (with yiic or gii):
+Open up the generated ContactModule.php file:
+- extend the class from MWebModule (not WebModule!)
+- set a public variable called $name. -> public $name='contact'
+
+Open up the DefaultController and extend it from the MController (not Controller)

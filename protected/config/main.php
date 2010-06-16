@@ -108,5 +108,6 @@ return array(
 
 		'default' => array(),
 		'profile' => array(),
+		'contact' => array(),
 	),
 );
