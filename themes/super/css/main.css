@@ -169,8 +169,10 @@ div.search-form
 .portlet-decoration
 {
 	padding: 3px 8px;
-	background: #B7D6E7;
-	border-left: 5px solid #6FACCF;
+	/* background: #B7D6E7; */
+	background-color: #121C28;
+	/* border-left: 5px solid #6FACCF; */
+	border-left: 5px solid #FDF4A5;
 }
 
 .portlet-title
@@ -179,7 +181,8 @@ div.search-form
 	font-weight: bold;
 	padding: 0;
 	margin: 0;
-	color: #298dcd;
+	/* color: #298dcd; */
+	color: #FDF4A5;
 }
 
 .portlet-content
@@ -187,7 +190,8 @@ div.search-form
 	font-size:0.9em;
 	margin: 0 0 15px 0;
 	padding: 5px 8px;
-	background:#EFFDFF;
+	/* background:#EFFDFF; */
+	border: 1px dashed #ddd;
 }
 
 .portlet-content ul
@@ -219,7 +223,8 @@ div.search-form
 .operations li a
 {
 	font: bold 12px Arial;
-	color: #0066A4;
+	/* color: #0066A4; */
+	color: #aaa;
 	display: block;
 	padding: 2px 0 2px 8px;
 	line-height: 15px;
@@ -228,10 +233,13 @@ div.search-form
 
 .operations li a:visited
 {
-	color: #0066A4;
+	/* color: #0066A4; */
+	color: #aaa;
 }
 
 .operations li a:hover
 {
-	background: #80CFFF;
+	/* background: #80CFFF; */
+	background: #999;
+	color: #fff;
 }

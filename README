@@ -12,3 +12,8 @@ Open up the generated ContactModule.php file:
 - set a public variable called $name. -> public $name='contact'
 
 Open up the DefaultController and extend it from the MController (not Controller)
+
+CHANGES
+=======
+In the Yii-User-Management module I had to change the core YumController so it extends from MController 
+(and now have the domain public variable available if needed)

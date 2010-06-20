@@ -14,6 +14,7 @@ return array(
 
 	// autoloading model and component classes
 	'import'=>array(
+		'application.modules.user.model.*',
 		'application.models.*',
 		'application.components.*',
 		'application.mehesz.*',
@@ -30,7 +31,9 @@ return array(
 
 		'user'=>array(
 			// enable cookie-based authentication
+			'class' => 'application.modules.user.components.YumWebUser',
 			'allowAutoLogin'=>true,
+			'loginUrl' => array( '/user/user/login' ),
 		),
 		'viewRenderer'=>array(
   			'class'=>'ext.phamlp.Haml',
@@ -106,8 +109,16 @@ return array(
 			// ’newDirMode’=>0777,
 		),
 
-		'default' => array(),
-		'profile' => array(),
-		'contact' => array(),
+		'default' 	=> array(),
+		'profile' 	=> array(),
+		'contact' 	=> array(),
+		'user' 		=> array(
+							'modules' => array(
+								'role',
+								'profile',
+								'messages',
+							),
+							'debug' => true,
+						),
 	),
 );

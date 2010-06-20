@@ -95,13 +95,15 @@ class Contact extends CActiveRecord
 
 		$criteria->compare('domainID',$this->domainID);
 
-		$criteria->compare('public',$this->public);
+		// $criteria->compare('public',$this->public);
 
 		$criteria->compare('firstname',$this->firstname,true);
 
 		$criteria->compare('lastname',$this->lastname,true);
 
 		$criteria->compare('email',$this->email,true);
+
+		$criteria->compare('domainID', Yii::app()->controller->domain->id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

@@ -31,10 +31,10 @@
 				array('label'=> Yii::t('default', 'home'), 'url'=>array('/site/index')),
 				array('label'=> Yii::t('default', 'about'), 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=> Yii::t('default', 'contact'), 'url'=>array('/site/contact')),
-				array('label'=> Yii::t('default', 'profile'), 'url'=>array('/profile'), 'visible'=> ! Yii::app()->user->isGuest && $this->domain->hasModule('profile') ),
-				array('label'=> Yii::t('contact','contacts'), 'url'=>array('/contact'), 'visible'=>(! Yii::app()->user->isGuest && $this->domain->hasModule('contact') ) ),
-				array('label'=> Yii::t('default', 'login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=> Yii::t('default', 'logout') . ' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=> Yii::t('default', 'profile'), 'url'=>array('/user/user/profile'), 'visible'=> ! Yii::app()->user->isGuest ),
+				array('label'=> Yii::t('contact','contacts'), 'url'=>array('/contact/contact'), 'visible'=>(! Yii::app()->user->isGuest && $this->domain->hasModule('contact') ) ),
+				array('label'=> Yii::t('default', 'login'), 'url'=>array('/user/user/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=> Yii::t('default', 'logout') . ' ('.Yii::app()->user->name.')', 'url'=>array('/user/user/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		));
 		?>
@@ -44,7 +44,9 @@
 		'links'=>$this->breadcrumbs,
 	)); ?><!-- breadcrumbs -->
 
-	<?php echo $content; ?>
+	<div id="content">
+		<?php echo $content; ?>
+	</div>
 
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>

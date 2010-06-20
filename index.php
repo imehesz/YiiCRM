@@ -15,7 +15,8 @@ if( ! file_exists( $settings_file ) )
 require_once $settings_file;
 
 // change the following paths if necessary
-$yii=dirname(__FILE__).'/../yii-1.1.2.r2086/framework/yii.php';
+//$yii=dirname(__FILE__).'/../yii-1.1.2.r2086/framework/yii.php';
+$yii=dirname(__FILE__).'/../yii-svn/framework/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';
 
 // remove the following lines when in production mode
