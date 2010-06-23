@@ -1,24 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "contacts".
+ * This is the model class for table "contact_questions".
+ *
+ * The followings are the available columns in table 'contact_questions':
+ * @property integer $id
+ * @property integer $domainID
+ * @property string $question
+ * @property string $settings
  */
-class Contact extends CActiveRecord
+class ContactQuestion extends CActiveRecord
 {
 	/**
-	 * The followings are the available columns in table 'contacts':
-	 * @var integer $id
-	 * @var integer $userID
-	 * @var integer $domainID
-	 * @var integer $public
-	 * @var string $firstname
-	 * @var string $lastname
-	 * @var string $email
-	 */
-
-	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Contact the static model class
+	 * @return ContactQuestion the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +25,7 @@ class Contact extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'contacts';
+		return 'contact_questions';
 	}
 
 	/**
@@ -41,12 +36,12 @@ class Contact extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('userID, domainID, public, firstname, lastname, email', 'required'),
-			array('userID, domainID, public', 'numerical', 'integerOnly'=>true),
-			array('firstname, lastname, email', 'length', 'max'=>240),
+			array('domainID, question, settings', 'required'),
+			array('domainID', 'numerical', 'integerOnly'=>true),
+			array('question', 'length', 'max'=>240),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('firstname, lastname, email, created', 'safe', 'on'=>'search'),
+			array('id, domainID, question, settings', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,9 +53,6 @@ class Contact extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'domain' 	=> array(self::BELONGS_TO, 'Domains', 'domainID'),
-			'user' 		=> array(self::BELONGS_TO, 'YumUser', 'userID'),
-			'answers' 	=> array(self::HAS_MANY, 'ContactAnswer', 'userID' )
 		);
 	}
 
@@ -71,12 +63,9 @@ class Contact extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'userID' => 'User',
 			'domainID' => 'Domain',
-			'public' => 'Public',
-			'firstname' => 'Firstname',
-			'lastname' => 'Lastname',
-			'email' => 'Email',
+			'question' => 'Question',
+			'settings' => 'Settings',
 		);
 	}
 
@@ -91,21 +80,13 @@ class Contact extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		// $criteria->compare('id',$this->id);
-
-		$criteria->compare('userID',$this->userID);
+		$criteria->compare('id',$this->id);
 
 		$criteria->compare('domainID',$this->domainID);
 
-		// $criteria->compare('public',$this->public);
+		$criteria->compare('question',$this->question,true);
 
-		$criteria->compare('firstname',$this->firstname,true);
-
-		$criteria->compare('lastname',$this->lastname,true);
-
-		$criteria->compare('email',$this->email,true);
-
-		$criteria->compare('domainID', Yii::app()->controller->domain->id);
+		$criteria->compare('settings',$this->settings,true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Contacts',
+	Yii::t('contact','contacts'),
 );
 
 $this->menu=array(
@@ -38,7 +38,6 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter' => $model,
 	'columns' => array( 
-		'id',
 		array(
 			'name'  => 'firstname',
 			'value' => '$data->firstname',

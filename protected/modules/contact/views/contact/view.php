@@ -27,3 +27,7 @@ $this->menu=array(
 		'email',
 	),
 )); ?>
+
+<?php foreach( $model->answers as $answer): ?>
+	<?php echo $answer->answer; ?>
+<?php endforeach; ?>

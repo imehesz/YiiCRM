@@ -4,26 +4,27 @@
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
-
+	<?php /*
 	<div class="row">
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>
-	</div>
+	</div>*/ ?>
 
 	<div class="row">
 		<?php echo $form->label($model,'userID'); ?>
 		<?php echo $form->textField($model,'userID'); ?>
 	</div>
-
+	<?php /*
 	<div class="row">
 		<?php echo $form->label($model,'domainID'); ?>
 		<?php echo $form->textField($model,'domainID'); ?>
-	</div>
+	</div>*/ ?>
 
+	<?php /*
 	<div class="row">
 		<?php echo $form->label($model,'public'); ?>
 		<?php echo $form->textField($model,'public'); ?>
-	</div>
+	</div>*/ ?>
 
 	<div class="row">
 		<?php echo $form->label($model,'firstname'); ?>
