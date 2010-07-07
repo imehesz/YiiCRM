@@ -112,6 +112,7 @@ return array(
 		'default' 	=> array(),
 		'profile' 	=> array(),
 		'contact' 	=> array(),
+		// 'bizcard' 	=> array(),
 		'user' 		=> array(
 							'modules' => array(
 								'role',

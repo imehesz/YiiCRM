@@ -31,3 +31,7 @@ $this->menu=array(
 <?php foreach( $model->answers as $answer): ?>
 	<?php echo $answer->answer; ?>
 <?php endforeach; ?>
+
+<?php foreach( $model->bizcards as $bizcard ) : ?>
+	<?php echo $bizcard->bizcard; ?>
+<?php endforeach; ?>

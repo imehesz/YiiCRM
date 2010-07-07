@@ -22,6 +22,11 @@ class Contact extends CActiveRecord
 	 */
 	public static function model($className=__CLASS__)
 	{
+		if( Yii::app()->controller->domain->hasModule( 'bizcard' ) )
+		{
+			Yii::app()->getModule('bizcard');
+		}
+
 		return parent::model($className);
 	}
 
@@ -40,7 +45,7 @@ class Contact extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
+		$retarr = array(
 			array('userID, domainID, public, firstname, lastname, email', 'required'),
 			array('userID, domainID, public', 'numerical', 'integerOnly'=>true),
 			array('firstname, lastname, email', 'length', 'max'=>240),
@@ -48,6 +53,13 @@ class Contact extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('firstname, lastname, email, created', 'safe', 'on'=>'search'),
 		);
+
+/*		if( Yii::app()->controller->domain->hasModule( 'bizcard' ) )
+		{
+			$retarr[] = array('bizcard', 'file', 'types'=>'jpg, gif, png');
+		} */
+
+		return $retarr;
 	}
 
 	/**
@@ -57,11 +69,18 @@ class Contact extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
+		$retarr = array(
 			'domain' 	=> array(self::BELONGS_TO, 'Domains', 'domainID'),
 			'user' 		=> array(self::BELONGS_TO, 'YumUser', 'userID'),
-			'answers' 	=> array(self::HAS_MANY, 'ContactAnswer', 'userID' )
+			'answers' 	=> array(self::HAS_MANY, 'ContactAnswer', 'contactID' )
 		);
+
+		if( Yii::app()->controller->domain->hasModule( 'bizcard' ) )
+		{
+			$retarr['bizcards'] = array( self::HAS_MANY, 'Bizcard', 'contactID' );
+		}
+
+		return $retarr;
 	}
 
 	/**
@@ -110,5 +129,21 @@ class Contact extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 *
+	 *
+	 */
+	public function idsWithNames()
+	{
+		$retval = array();
+
+		foreach( $this->findAll() as $contact  )
+		{
+			$retval[ $contact->id ] = $contact->lastname . ', ' . $contact->firstname;
+		}
+
+		return $retval;
 	}
 }
