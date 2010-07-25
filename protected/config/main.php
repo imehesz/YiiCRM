@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'YiiCRM',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -52,8 +52,7 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
-		),
-		*/
+		),*/
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
@@ -88,6 +87,25 @@ return array(
 		'messages' => array(
 			'class' => 'CDbMessageSource',
 		),
+
+		'image' 	=> array(
+			'class' 	=> 'ext.imageapi.CImage',
+			'presets' 	=> array(
+					'bizpopup' 	=> array(
+						'cacheIn' 	=> 'webroot.files.bizpopup',
+						'actions' 	=> array(
+							'scale' 	=> array( 'width' => 600, 'height' => 450 ),
+						),
+					),
+					'bizthumb' 	=> array(
+						'cacheIn' 	=> 'webroot.files.bizthumb',
+						'actions' 	=> array(
+							'scaleAndCrop' 	=> array( 'width' => 100, 'height' => 75 ),
+						),
+					),
+				
+			),
+		),
 	),
 
 	// application-level parameters that can be accessed
@@ -117,7 +135,7 @@ return array(
 							'modules' => array(
 								'role',
 								'profile',
-								'messages',
+								// 'messages',
 							),
 							'debug' => true,
 						),
