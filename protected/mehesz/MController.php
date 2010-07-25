@@ -44,6 +44,34 @@ class MController extends CController
 		$this->domain = $domain;
 		// Yii::app()->config->load(); //it loads all data stored in DB, look dbparam for doc
         // Yii::app()->theme = 'aaa';//Yii::app()->config->theme; // overwrite default "theme" value, stored in config/main.php
-        // Yii::app()->name = Yii::app()->config->name;		
+        // Yii::app()->name = Yii::app()->config->name;	
+
+		// so by default, at this point we will check if there is a CSS or JS
+		// file, that named as the domain so we can add it to the page
+
+		if( isset( $this->module ) )
+		{
+				$module_path = Yii::getPathOfAlias( 'application.modules.' . $this->module->name );
+
+				$cssfile 	= $module_path . '/css/' . $this->module->name . '.css';
+				$jsfile 	= $module_path . '/js/' . $this->module->name . '.js'; 
+
+				if( file_exists( $cssfile ) )
+				{
+					$asset_css = Yii::app()->getAssetManager()->publish($cssfile);
+					$cs = Yii::app()->getClientScript();
+					$cs->registerCssFile( $asset_css );
+				}
+
+				if( file_exists( $jsfile ) )
+				{
+					$asset_js = Yii::app()->getAssetManager()->publish( $jsfile );
+					if( ! isset( $cs ) )
+					{
+						$cs = Yii::app()->getClientScript();
+					}
+					$cs->registerScriptFile( $asset_js );
+				}
+		}
 	}
 }
