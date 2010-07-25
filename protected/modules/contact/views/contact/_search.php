@@ -9,11 +9,12 @@
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>
 	</div>*/ ?>
-
+	<?php /*
 	<div class="row">
 		<?php echo $form->label($model,'userID'); ?>
 		<?php echo $form->textField($model,'userID'); ?>
 	</div>
+	*/ ?>
 	<?php /*
 	<div class="row">
 		<?php echo $form->label($model,'domainID'); ?>

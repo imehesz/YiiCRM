@@ -1,0 +1,27 @@
+.contact-row
+{
+	font-size: 22px;
+	margin-top: 5px;
+}
+
+.contact-row:hover
+{
+	color: #000;
+}
+
+.contact-row label
+{
+	width:150px;
+	float: left;
+	font-weight: bolder;
+	color: #ddd;
+}
+
+.contact-left-panel
+{
+	float:left;
+	margin-right:20px;
+	min-height:300px;
+	width:450px;
+	overflow:hidden;
+}

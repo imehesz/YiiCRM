@@ -33,12 +33,8 @@ class BizcardController extends MController
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','index','view'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -68,6 +64,10 @@ class BizcardController extends MController
 	public function actionCreate()
 	{
 		$model=new Bizcard;
+	
+		// if we got the UID, the let's set it ...
+		$uid = (int)Yii::app()->request->getParam( 'uid', null );
+		$model->contactID = $uid ? $uid : '';
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -77,7 +77,10 @@ class BizcardController extends MController
 			$model->attributes=$_POST['Bizcard'];
 
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			{
+				//$this->redirect(array('view','id'=>$model->id));
+				$this->redirect( $this->createUrl( '/contact/contact/view', array( 'id' => $model->contactID ) ) );
+			}
 		}
 
 		$this->render('create',array(
@@ -132,9 +135,12 @@ class BizcardController extends MController
 	 */
 	public function actionIndex()
 	{
+		$bizcards = Bizcard::model()->findAllByAttributes( array( 'domainID' => $this->domain->id ) );
+
 		$dataProvider=new CActiveDataProvider('Bizcard');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider' 		=> $dataProvider,
+			'bizcards' 			=> $bizcards,
 		));
 	}
 

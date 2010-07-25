@@ -25,13 +25,13 @@ $('.search-form form').submit(function(){
 
 <h1><?php echo Yii::t('contact','contacts');?></h1>
 
+<?php echo CHtml::link( Yii::t('contact', 'create contact'), $this->createUrl( 'contact/create' ) ); ?> 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id' => 'contact-grid',

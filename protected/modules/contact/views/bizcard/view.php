@@ -13,9 +13,8 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Bizcard #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php /*
+	$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -26,4 +25,11 @@ $this->menu=array(
 		'bizcard_orig',
 		'created',
 	),
-)); ?>
+)); */
+?>
+<div style="text-align:center;color:#fff;font-size:24px;font-weight:bolder;background-color:#999;width:300px;padding:5px;">
+	<?php echo $model->contact->firstname . ' ' . $model->contact->lastname; ?>
+</div>
+<div style="padding:5px;border:2px solid #999;text-align:center;">
+	<img src="<?php echo Yii::app()->request->baseUrl; ?>/files/<?php echo $model->bizcard; ?>" width="650"></a>
+</div>

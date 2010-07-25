@@ -27,7 +27,7 @@
 	*/?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'contactID'); ?>
-		<?php echo $form->dropDownList($model,'contactID', Contact::model()->idsWithNames() ); ?>
+		<?php echo $form->dropDownList( $model, 'contactID', Contact::model()->idsWithNames()); ?>
 		<?php echo $form->error($model,'contactID'); ?>
 	</div>
 

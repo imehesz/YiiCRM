@@ -16,6 +16,8 @@ class Contact extends CActiveRecord
 	 * @var string $email
 	 */
 
+	public $addbizcard;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Contact the static model class
@@ -47,7 +49,7 @@ class Contact extends CActiveRecord
 		// will receive user inputs.
 		$retarr = array(
 			array('userID, domainID, public, firstname, lastname, email', 'required'),
-			array('userID, domainID, public', 'numerical', 'integerOnly'=>true),
+			array('addbizcard,userID, domainID, public', 'numerical', 'integerOnly'=>true),
 			array('firstname, lastname, email', 'length', 'max'=>240),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -92,10 +94,10 @@ class Contact extends CActiveRecord
 			'id' => 'ID',
 			'userID' => 'User',
 			'domainID' => 'Domain',
-			'public' => 'Public',
-			'firstname' => 'Firstname',
-			'lastname' => 'Lastname',
-			'email' => 'Email',
+			'public' => Yii::t( 'contact', 'public' ),
+			'firstname' => Yii::t( 'contact', 'first name' ),
+			'lastname' => Yii::t( 'contact', 'last name' ),
+			'email' => Yii::t( 'contact', 'email address' ),
 		);
 	}
 
@@ -145,5 +147,20 @@ class Contact extends CActiveRecord
 		}
 
 		return $retval;
+	}
+
+	public function beforeValidate()
+	{
+		$this->domainID = Yii::app()->controller->domain->id;
+		$this->userID 	= Yii::app()->user->id;
+
+		$now = time();
+		if( $this->isNewRecord )
+		{
+			$this->created = $now;
+		}
+
+		$this->updated = $now;
+		return parent::beforeValidate();
 	}
 }

@@ -34,6 +34,7 @@
 				array('label'=> Yii::t('default','contact'), 'url'=>array('/site/contact')),
 				array('label'=> Yii::t('default','login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=> Yii::t('contact','contacts'), 'url'=>array('/contact'), 'visible'=>(! Yii::app()->user->isGuest && $this->domain->hasModule('contact') ) ),
+				array('label'=> Yii::t('bizcard','bizcards'), 'url'=>array('/bizcard'), 'visible'=>(! Yii::app()->user->isGuest && $this->domain->hasModule('bizcard') ) ),
 				array('label'=> Yii::t('default','logout') . ' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>

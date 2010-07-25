@@ -58,6 +58,7 @@ class Bizcard extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'contact' 		=> array(self::BELONGS_TO, 'Contact', 'contactID'),
 		);
 	}
 

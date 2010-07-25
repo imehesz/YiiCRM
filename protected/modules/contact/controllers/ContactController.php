@@ -75,7 +75,16 @@ class ContactController extends MController
 		{
 			$model->attributes=$_POST['Contact'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			{
+				if( $model->addbizcard )
+				{
+					$this->redirect( array( '/contact/bizcard/create', 'uid' => $model->id ) );
+				}
+				else
+				{
+					$this->redirect(array('view','id'=>$model->id));
+				}
+			}
 		}
 
 		$this->render('create',array(
