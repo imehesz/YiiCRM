@@ -18,6 +18,8 @@ class Contact extends CActiveRecord
 
 	public $addbizcard;
 
+	public $additional_questions;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Contact the static model class
@@ -162,5 +164,53 @@ class Contact extends CActiveRecord
 
 		$this->updated = $now;
 		return parent::beforeValidate();
+	}
+
+	public function afterSave()
+	{
+		// we have to take care of the additional 
+		// fields
+		if( is_array( $_POST['additional_questions'] ) )
+		{
+			$questions = $_POST[ 'additional_questions' ];
+			foreach( $questions as $questionID => $answer )
+			{
+				// let's see if we have this answer already
+				$contact_answer = ContactAnswer::model()->find( 'questionID=' . $questionID . ' AND contactID=' . $this->primaryKey );
+				// if so, we only update ...
+				if( $contact_answer )
+				{
+					$contact_answer->answer = $answer;
+				}
+				else
+				{
+					$contact_answer = new ContactAnswer();
+					$contact_answer->setAttributes( 
+						array(
+							'domainID' 		=> Yii::app()->controller->domain->id,
+							'contactID' 	=> $this->primaryKey,
+							'questionID' 	=> $questionID,
+							'answer' 		=> strip_tags( $answer ),
+						)
+					);
+				}
+
+				$contact_answer->save();
+			}
+		}
+
+		return parent::afterSave();
+	}
+
+	public function getAnswer( $questionID )
+	{
+		if( $this->isNewRecord )
+		{
+			return null;
+		}
+
+		$answer = ContactAnswer::model()->find( 'questionID=' . $questionID . ' AND contactID=' . $this->id );
+
+		return isset( $answer ) ? $answer->answer : null;
 	}
 }

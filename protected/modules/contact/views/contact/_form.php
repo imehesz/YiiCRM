@@ -46,7 +46,7 @@
 			<?php  echo Yii::t( 'contact', 'If you set this contact "public", other members of your community will be able to view his/her information!');?>
 		</div>
 	</div>
-	
+
 	<?php if( $model->isNewRecord ): ?>
 		<div class="row">
 			<?php echo $form->labelEx( $model, 'addbizcard' ); ?>
@@ -56,6 +56,18 @@
 			</div>
 		</div>
 	<?php endif; ?>
+
+	<hr>
+	<h2><?php echo ucwords(Yii::t( 'contact', 'additional fields' ) ); ?></h2>
+	<?php if( is_array( $this->questions ) ) : ?>
+		<?php foreach( $this->questions as $question ) : ?>
+			<div class="row">
+				<?php echo $form->labelEx( $model, $question->question ); ?>
+				<?php echo CHtml::textField( 'additional_questions[' . $question->id . ']', $model->getAnswer( $question->id ) ); ?>
+			</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

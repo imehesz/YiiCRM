@@ -14,6 +14,17 @@ class ContactController extends MController
 	 */
 	private $_model;
 
+	public $questions;
+
+	public function init()
+	{
+		parent::init();
+		// TODO this might be better in the model ...
+		// let's load all the additional questions 
+		// for this domain ...
+		$this->questions = ContactQuestion::model()->findAll( 'domainID=' . $this->domain->id );
+	}
+
 	/**
 	 * @return array action filters
 	 */

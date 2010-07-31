@@ -50,7 +50,11 @@ $this->menu=array(
 
 		<?php foreach( $model->answers as $answer): ?>
 			<div class="contact-row">
-				<label><?php echo Yii::t( 'contact', $answer->question->question ); ?></label>
+				<label>
+					<?php
+						echo ContactQuestion::model()->findByPk( $answer->questionID )->question;
+					?>
+				</label>
 			<?php echo $answer->answer; ?>
 			</div>
 		<?php endforeach; ?>

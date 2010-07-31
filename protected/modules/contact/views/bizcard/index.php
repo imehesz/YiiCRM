@@ -30,7 +30,9 @@ $this->menu=array(
 			<div>
 				<p><strong>email:</strong> <?php echo $bizcard->contact->email; ?></p>
 				<?php foreach( $bizcard->contact->answers as $answer ) : ?>
-					<strong><?php echo $answer->question->question; ?></strong>	<?php echo $answer->answer; ?>
+					<div class="detail-row">
+						<strong><?php echo ContactQuestion::model()->findByPk( $answer->questionID )->question; ?></strong>	<?php echo $answer->answer; ?>
+					</div>
 				<?php endforeach; ?>
 			</div>
 		</div>

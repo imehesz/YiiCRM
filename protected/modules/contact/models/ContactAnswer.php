@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'contact_answers':
  * @property integer $id
  * @property integer $domainID
- * @property integer $userID
+ * @property integer $questionID
  * @property string $answer
  */
 class ContactAnswer extends CActiveRecord
@@ -36,11 +36,11 @@ class ContactAnswer extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('domainID, userID, answer', 'required'),
-			array('domainID, userID', 'numerical', 'integerOnly'=>true),
+			array('domainID, questionID, answer, contactID', 'required'),
+			array('domainID, questionID,contactID', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, domainID, userID, answer', 'safe', 'on'=>'search'),
+			array('id, domainID, questionID, answer', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +64,6 @@ class ContactAnswer extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'domainID' => 'Domain',
-			'userID' => 'User',
 			'answer' => 'Answer',
 		);
 	}
@@ -84,7 +83,7 @@ class ContactAnswer extends CActiveRecord
 
 		$criteria->compare('domainID',$this->domainID);
 
-		$criteria->compare('userID',$this->userID);
+		$criteria->compare('questionID',$this->questionID);
 
 		$criteria->compare('answer',$this->answer,true);
 
