@@ -40,7 +40,7 @@ class Bizcard extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('image', 'file', 'types'=>'jpg, gif, png'),
+			array('image', 'file', 'types'=>'jpg', 'allowEmpty' => true ),
 			array('domainID, userID, contactID', 'required'),
 			array('domainID, userID, contactID, created', 'numerical', 'integerOnly'=>true),
 			array('bizcard, bizcard_orig', 'length', 'max'=>240),
@@ -135,5 +135,55 @@ class Bizcard extends CActiveRecord
 		}
 
 		return parent::afterValidate();
+	}
+
+	/**
+	 *
+	 */
+	public function updateBizcard()
+	{
+		// let's make sure we have a valid model
+		if( $this->id )
+		{
+			// let's load the original image, if exists
+			$src = MEHESZ_FILE_STORAGE . $this->bizcard_orig;
+			if( file_exists( $src ) )
+			{
+				$img_r = imagecreatefromjpeg($src);
+
+				// getting the width and height of 
+				// the original image, so we can calculate
+				// the distorsion ...
+				$orig_width 	= imagesx( $img_r );
+				$orig_height 	= imagesy( $img_r );
+				$wanted_width   = 600;
+				$wanted_height 	= 450;
+
+				$distort_width	= $orig_width / $wanted_width;
+				$distort_height	= $orig_height / $wanted_height;
+			
+				$quality 		= 70;
+
+				$dst_r = ImageCreateTrueColor( $wanted_width, $wanted_height );
+
+				// so hopefully here we calculate the correct 
+				// with and height and resize the image	
+				imagecopyresampled( $dst_r,$img_r,0,0,$_POST['x']*$distort_width,$_POST['y']*$distort_height, $wanted_width,$wanted_height,$_POST['w']*$distort_width,$_POST['h']*$distort_height );
+
+				// header('Content-type: image/jpeg');
+				// let's write the new image into a file ...
+
+				$randhash = 'MX' . md5( time() . rand( 0, time() ) );
+				
+				// if everything is all and well, we set the field also
+				if( imagejpeg( $dst_r, MEHESZ_FILE_STORAGE . $randhash . '.jpg', $quality ) )
+				{
+					$this->bizcard = $randhash . '.jpg';
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 }

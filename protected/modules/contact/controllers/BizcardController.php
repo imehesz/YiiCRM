@@ -102,6 +102,14 @@ class BizcardController extends MController
 		if(isset($_POST['Bizcard']))
 		{
 			$model->attributes=$_POST['Bizcard'];
+
+			// if we have some coordinates
+			// we need to update the bizcard itself ...
+			if( $_POST['x'] || $_POST['y'] || $_POST['w'] || $_POST['h']  )
+			{
+				$model->updateBizcard();
+			}
+
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

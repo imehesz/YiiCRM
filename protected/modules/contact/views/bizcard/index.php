@@ -26,6 +26,12 @@ $this->menu=array(
 		<img src="<?php echo $bizpopup; ?>" />
 		<!-- image details -->
 		<div class="details">
+			<?php 
+				// we can only add the update if the user
+				// is the same who created the bizcard 
+				if( Yii::app()->user->id == $bizcard->userID ) : ?>
+					<div><a href="<?php echo $this->createUrl( 'bizcard/update', array( 'id' => $bizcard->id ) ); ?>" style="color:#999;">update</a></div>
+			<?php endif; ?>
 			<h2 style="color:#fff;"><?php echo $bizcard->contact->firstname; ?> <strong><?php echo $bizcard->contact->lastname; ?></strong></h2>
 			<div>
 				<p><strong>email:</strong> <?php echo $bizcard->contact->email; ?></p>
